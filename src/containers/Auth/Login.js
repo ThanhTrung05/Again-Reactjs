@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
+import { handleLoginApi } from "../../services/userServices"
 
 
 
@@ -12,7 +13,8 @@ class Login extends Component {
         this.state = {
             userName: "",
             password: "",
-            isShowPassword: false
+            isShowPassword: false,
+            errMessage: "",
         }
     }
 
@@ -28,9 +30,34 @@ class Login extends Component {
         })
     }
 
-    handleLogin = () => {
-        console.log('userName: ', this.state.userName, 'password: ', this.state.password)
-        console.log('all: ', this.state)
+    handleLogin = async () => {
+        this.setState({
+            errMessage: ''
+        })
+        try {
+            let data = await handleLoginApi(this.state.userName, this.state.password);
+            if (data && data.errCode !== 0) {
+                this.setState({
+                    errMessage: data.message
+                })
+            }
+            if (data && data.errCode === 0) {
+                this.props.userLoginSuccess(data.user)
+                console.log('login success')
+            }
+
+        } catch (e) {
+            if (e.response) {
+                if (e.response.data) {
+                    this.setState({
+                        errMessage: e.response.data.message
+                    })
+                }
+            }
+            console.log('Yuric', e.response);
+
+        }
+
     }
 
     handleShowHidePassword = () => {
@@ -71,6 +98,10 @@ class Login extends Component {
                                 </span>
                             </div>
 
+                            <div className="col-12" style={{ color: ' red' }}>
+                                {this.state.errMessage}
+                            </div>
+
                             <div className="col-12 login-btn">
                                 <button
                                     onClick={() => this.handleLogin()}
@@ -105,8 +136,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        // userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
     };
 };
 
