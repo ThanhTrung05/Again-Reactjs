@@ -46,3 +46,41 @@ table {
     }
 
 }
+
+.modal-user-container {
+    .modal-user-body {
+        display  : flex;
+        gap      : 10px;
+        flex-wrap: wrap;
+
+        .input-container {
+            display       : flex;
+            flex-direction: column;
+            width         : 48%;
+
+            &.max-width-input {
+                width: 100%;
+            }
+
+            input {
+                border-radius: 3px;
+                height       : 30px;
+                border       : 1px solid grey;
+                outline      : none;
+                height       : 30px;
+                padding      : 0px 10px;
+            }
+        }
+    }
+
+    .modal-content {
+        .modal-header {
+            button {
+                background-color: transparent !important;
+                color           : white;
+                border          : none;
+                font-size       : 27px;
+            }
+        }
+    }
+}

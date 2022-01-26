@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './userManage.scss';
 import { getAllUsers } from '../../services/userServices'
+import ModalUser from './ModalUser'
 class UserManage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             arrUsers: [],
+            isOpenModalUser: false
         }
     }
 
@@ -21,11 +23,23 @@ class UserManage extends Component {
 
     }
 
+    handleAddNewUser = () => {
+        this.setState({
+            isOpenModalUser: true
+        })
+    }
+
+    toggleUserModal = () => {
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser,
+        })
+    }
+
     /** Life cycle
     *   Run component
     * 1. Run constructor => init state
     * 2. Did mount (setState)
-    * 3. Render
+    * 3. Render (re-render)
     *
     */
 
@@ -33,8 +47,21 @@ class UserManage extends Component {
         let arrUsers = this.state.arrUsers
         return (
             <div className="users-container">
-                <div className="title text-center">
+                <ModalUser
+                    isOpen={this.state.isOpenModalUser}
+                    test="abc"
+                    toggleFromParent={this.toggleUserModal}
+                />
+                <div className="title text-center">0
                     Manage users with Yuric
+                </div>
+                <div className="mx-1">
+                    <button
+                        onClick={() => this.handleAddNewUser()}
+                        className="btn btn-primary px-3">
+                        <i className="fas fa-plus"></i>
+                        Add new user
+                    </button>
                 </div>
                 <div className="users-table mt-3 mx-1">
                     <table>
@@ -47,7 +74,6 @@ class UserManage extends Component {
                         </tr>
 
                         {arrUsers && arrUsers.map((item, index) => {
-                            console.log('Yuric check map', item, index)
                             return (
                                 <tr>
                                     <td>{item.email}</td>
