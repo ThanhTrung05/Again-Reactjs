@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { emitter } from "../../utils/emitter"
@@ -60,11 +59,11 @@ class ModalUser extends Component {
     }
 
     checkValidateInput = () => {
-        let isValid = true;
+        let isValide = true;
         let arrInput = ['email', 'password', 'firstName', 'lastName', 'address'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
-                isValid = false;
+                isValide = false
                 alert('Missing parameter: ' + arrInput[i]);
                 break;
             }
@@ -73,8 +72,8 @@ class ModalUser extends Component {
     }
 
     handleAddNewUser = () => {
-        let isValid = this.checkValidateInput();
-        if (isValid === true) {
+        let isValide = this.checkValidateInput();
+        if (isValide === true) {
             this.props.createNewUser(this.state);
         }
     }
