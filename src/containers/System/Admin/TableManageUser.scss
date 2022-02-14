@@ -1,0 +1,25 @@
+#TableManageUser {
+    font-family    : arial, sans-serif;
+    border-collapse: collapse;
+    width          : 100%;
+}
+
+#TableManageUser td,
+th {
+    border    : 1px solid #dddddd;
+    text-align: left;
+    padding   : 8px;
+}
+
+#TableManageUser th {
+    background-color: #04AA6D;
+    color           : #fff;
+}
+
+#TableManageUser td {
+    color: #000;
+}
+
+#TableManageUser tr:nth-child(even) {
+    background-color: #dddddd;
+}
