@@ -6,6 +6,7 @@ import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import TableManageUser from './TableManageUser'
 
 class UserRedux extends Component {
     constructor(props) {
@@ -111,6 +112,7 @@ class UserRedux extends Component {
             positionId: this.state.position
         })
 
+
     }
 
     checkValidateInput = () => {
@@ -150,7 +152,7 @@ class UserRedux extends Component {
         // let email = this.state.email;
 
         let { email, password, firstName, lastName, phoneNumber,
-            address, gender, position, role, avatar
+            address,
         } = this.state;
 
 
@@ -277,9 +279,17 @@ class UserRedux extends Component {
                                     onClick={() => this.handleSaveUser()}
                                 > <FormattedMessage id="manage-user.save" /></button>
                             </div>
+
+                            <div className="col-12 mb-5">
+                                <TableManageUser />
+                            </div>
+
                         </div>
                     </div>
                 </div>
+
+
+
                 {this.state.isOpen === true && <Lightbox
                     mainSrc={this.state.previewimgURL}
                     onCloseRequest={() => this.setState({ isOpen: false })}
@@ -307,7 +317,8 @@ const mapDispatchToProps = dispatch => {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        createNewUser: (data) => dispatch(actions.createNewUser(data))
+        createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchAllUserRedux: () => dispatch(actions.fetchAllUserStart()),
         // processLogout: () => dispatch(actions.processLogout()),
         // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
