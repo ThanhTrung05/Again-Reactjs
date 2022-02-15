@@ -18,6 +18,8 @@ class UserRedux extends Component {
             previewimgURL: '',
             isOpen: false,
 
+
+
             email: '',
             password: '',
             firstName: '',
@@ -73,6 +75,23 @@ class UserRedux extends Component {
 
             })
         }
+        console.log('check prevProps.listUsers: ')
+
+        if (prevProps.listUsers !== this.props.listUsers) {
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                gender: '',
+                position: '',
+                role: '',
+                avatar: '',
+            })
+        }
+
     }
 
     handleOnChangeImage = (e) => {
@@ -98,6 +117,8 @@ class UserRedux extends Component {
     handleSaveUser = () => {
         let isValid = this.checkValidateInput()
         if (isValid === false) return;
+
+
 
         //fire redux action
         this.props.createNewUser({
@@ -308,7 +329,8 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders,
         roleRedux: state.admin.roles,
         positionRedux: state.admin.positions,
-        isLoadingGender: state.admin.isLoadingGender
+        isLoadingGender: state.admin.isLoadingGender,
+        listUsers: state.admin.users
     };
 };
 
