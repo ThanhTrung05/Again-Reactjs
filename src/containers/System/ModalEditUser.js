@@ -68,7 +68,6 @@ class ModalEditUser extends Component {
     }
 
     render() {
-        console.log('check props from parent: ', this.props)
 
         return (
             <Modal Modal

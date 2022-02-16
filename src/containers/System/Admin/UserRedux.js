@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { LANGUAGES, CRUD_ACTIONS } from "../../../utils";
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import TableManageUser from './TableManageUser'
+import TableManageUser from './TableManageUser';
+
 
 class UserRedux extends Component {
     constructor(props) {
@@ -78,7 +79,6 @@ class UserRedux extends Component {
 
             })
         }
-        console.log('check prevProps.listUsers: ')
 
         if (prevProps.listUsers !== this.props.listUsers) {
             let arrGenders = this.props.genderRedux
@@ -97,20 +97,22 @@ class UserRedux extends Component {
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
                 avatar: '',
+                previewimgURL: '',
                 action: CRUD_ACTIONS.CREATE,
 
             })
         }
     }
 
-    handleOnChangeImage = (e) => {
+    handleOnChangeImage = async (e) => {
         let data = e.target.files;
         let file = data[0];
         if (file) {
+            let base64 = await CommonUtils.getBase64(file)
             let objectUrl = URL.createObjectURL(file)
             this.setState({
                 previewimgURL: objectUrl,
-                avatar: file
+                avatar: base64
             })
         }
     }
@@ -145,7 +147,8 @@ class UserRedux extends Component {
                 phoneNumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleId: this.state.role,
-                positionId: this.state.position
+                positionId: this.state.position,
+                avatar: this.state.avatar
             })
         }
         if (action === CRUD_ACTIONS.EDIT) {
@@ -161,8 +164,8 @@ class UserRedux extends Component {
                 phoneNumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleId: this.state.role,
-                positionId: this.state.position
-                // avatar: this.state.avatar
+                positionId: this.state.position,
+                avatar: this.state.avatar
             })
 
 
@@ -193,12 +196,15 @@ class UserRedux extends Component {
         this.setState({
             ...copyState
         }, () => {
-            console.log('hoidanit check input onchange: ', this.state)
         })
     }
 
     handleEditUserFromParent = (user) => {
-        console.log('check handle edit user from parent: ', user)
+
+        let imageBase64 = ''
+        if (user.image) {
+            imageBase64 = new Buffer(user.image, 'base64').toString('binary')
+        }
         this.setState({
             email: user.email,
             password: 'HASHCODE',
@@ -210,8 +216,11 @@ class UserRedux extends Component {
             position: user.positionId,
             role: user.roleId,
             avatar: '',
+            previewimgURL: imageBase64,
             action: CRUD_ACTIONS.EDIT,
             userEditId: user.id
+        }, () => {
+            console.log('check base64: ', this.state)
         })
     }
 
