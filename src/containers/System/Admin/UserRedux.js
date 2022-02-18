@@ -75,7 +75,7 @@ class UserRedux extends Component {
             let arrRoles = this.props.roleRedux
             this.setState({
                 roleArr: arrRoles,
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : ''
 
             })
         }
@@ -101,6 +101,7 @@ class UserRedux extends Component {
                 action: CRUD_ACTIONS.CREATE,
 
             })
+
         }
     }
 
@@ -219,8 +220,6 @@ class UserRedux extends Component {
             previewimgURL: imageBase64,
             action: CRUD_ACTIONS.EDIT,
             userEditId: user.id
-        }, () => {
-            console.log('check base64: ', this.state)
         })
     }
 

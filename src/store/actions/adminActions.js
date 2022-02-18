@@ -113,11 +113,11 @@ export const createNewUser = (data) => {
 }
 
 export const saveUserSuccess = () => ({
-    type: actionTypes.FETCH_ROLE_FAILED
+    type: actionTypes.CREATE_USER_SUCCESS
 })
 
 export const saveUserFailed = () => ({
-    type: actionTypes.FETCH_ROLE_FAILED
+    type: actionTypes.CREATE_USER_FAILED
 })
 
 export const fetchAllUserStart = () => {
@@ -227,7 +227,7 @@ export const editAUserFailed = () => ({
 export const fetchTopDoctor = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getTopDoctorHomeService('5')
+            let res = await getTopDoctorHomeService('')
             if (res && res.errCode === 0) {
 
                 dispatch({
@@ -240,7 +240,6 @@ export const fetchTopDoctor = () => {
                     type: actionTypes.FETCH_TOP_DOCTOR_FAILED
                 })
             }
-            console.log('check res : ', res)
 
         } catch (e) {
             dispatch({
