@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import Slider from "react-slick";
 import * as actions from "../../../store/actions";
@@ -28,14 +29,18 @@ class OutStandingDoctor extends Component {
 
         let allDoctors = this.state.arrDoctors
         let { language } = this.props
-        allDoctors = allDoctors.concat(allDoctors).concat(allDoctors)
+        // allDoctors = allDoctors.concat(allDoctors).concat(allDoctors)
 
         return (
             <div className="section-share section-outstanding-doctor">
                 <div className="section-containter">
                     <div className="section-header">
-                        <span className="title-section">Bác sĩ nổi bật tuần qua</span>
-                        <button className="btn-section">xem thêm</button>
+                        <span className="title-section">
+                            <FormattedMessage id="homepage.outstanding-doctor" />
+                        </span>
+                        <button className="btn-section">
+                            <FormattedMessage id="homepage.more-info" />
+                        </button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
