@@ -76,7 +76,6 @@ class ManageDoctor extends Component {
     }
 
     handleSaveContentMarkdown = () => {
-        console.log('check state: ', this.state)
         this.props.saveDetailDoctorRedux({
             contentMarkdown: this.state.contentMarkdown,
             contentHTML: this.state.contentHTML,
