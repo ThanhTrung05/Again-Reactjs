@@ -1,11 +1,9 @@
 .doctor-detail-container {
     height: 500px;
-    border: 1px solid red;
-    margin: 0 100px;
 
     .intro-doctor {
         display: flex;
-        border : 1px solid grey;
+        margin : 0 100px;
 
         .content-left {
             width        : 20%;
@@ -32,5 +30,30 @@
                 padding-top: 10px;
             }
         }
+    }
+
+    .chedule-doctor {}
+
+    .detail-doctor {
+        padding         : 15px 100px;
+        background-color: #f9f9f9;
+        border-top      : 1px solid #ddd;
+        border-bottom   : 1px solid #ddd;
+
+        h3 {
+            font-size: 17px;
+        }
+
+        h4 {
+            font-size: 16px;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .comment-doctor {
+        height: 50px;
     }
 }

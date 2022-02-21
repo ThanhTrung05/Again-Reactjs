@@ -87,6 +87,13 @@ class ManageDoctor extends Component {
             doctorId: this.state.selectedOption.value,
             action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         })
+        this.setState({
+            contentMarkdown: '',
+            contentHTML: '',
+            selectedOption: '',
+            description: '',
+
+        })
     }
 
     handleChangeSelect = async (selectedOption) => {
