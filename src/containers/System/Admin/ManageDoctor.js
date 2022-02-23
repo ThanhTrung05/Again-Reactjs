@@ -132,7 +132,7 @@ class ManageDoctor extends Component {
         return (
             <div className="manage-doctor-container">
                 <div className="manage-doctor-title">
-                    Tao them thong tin doctor
+                    Tạo thêm thông tin Bác sĩ
                 </div>
                 <div className="more-info">
                     <div className="content-left form-group">
