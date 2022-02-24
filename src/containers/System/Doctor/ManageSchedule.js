@@ -7,9 +7,9 @@ import * as actions from "../../../store/actions";
 import { LANGUAGES, dateFormat } from '../../../utils'
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment'
-import FormattedDate from '../../../components/Formating/FormattedDate'
 import { toast } from 'react-toastify';
-import _, { result } from 'lodash'
+import _ from 'lodash'
+import { saveBulkScheduleDoctor } from '../../../services/userServices'
 
 class ManageSchedule extends Component {
 
@@ -110,7 +110,7 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state
         let results = []
         if (selectedDoctor && _.isEmpty(selectedDoctor)) {
@@ -123,16 +123,22 @@ class ManageSchedule extends Component {
             return;
         }
 
-        let FormattedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        // let FormattedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        // let FormattedDate = moment(currentDate).unix()
+        let FormattedDate = new Date(currentDate).getTime()
+
+
+
 
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true)
             if (selectedTime && selectedTime.length > 0) {
+                // eslint-disable-next-line array-callback-return
                 selectedTime.map(schedule => {
                     let object = {};
                     object.doctorId = selectedDoctor.value
                     object.date = FormattedDate
-                    object.time = schedule.keyMap
+                    object.timeType = schedule.keyMap
                     results.push(object)
                 })
 
@@ -141,7 +147,15 @@ class ManageSchedule extends Component {
 
             }
         }
-        console.log('check results: ', results)
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule: results,
+            doctorId: selectedDoctor.value,
+            FormattedDate: FormattedDate
+        })
+
+        if (res && res.errCode === 0) {
+            toast.success('save the schedule successfully')
+        }
     }
 
     render() {
