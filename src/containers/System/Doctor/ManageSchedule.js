@@ -150,7 +150,7 @@ class ManageSchedule extends Component {
         let res = await saveBulkScheduleDoctor({
             arrSchedule: results,
             doctorId: selectedDoctor.value,
-            FormattedDate: FormattedDate
+            FormattedDate: '' + FormattedDate
         })
 
         if (res && res.errCode === 0) {
