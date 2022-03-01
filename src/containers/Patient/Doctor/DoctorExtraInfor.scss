@@ -24,9 +24,14 @@
     .content-down {
 
         .short-infor {
-            span {
+            .detail {
                 cursor: pointer;
                 color : rgb(74, 185, 219);
+            }
+
+            .currency {
+                margin: 0 5px;
+
             }
         }
 
@@ -54,13 +59,13 @@
             border          : 1px solid #ddd;
             padding         : 5px;
             background-color: #eee;
-
+            margin-bottom   : 10px;
         }
 
         .hide-price {
-            margin-top: 10px;
-            cursor    : pointer;
-            color     : rgb(74, 185, 219);
+
+            cursor: pointer;
+            color : rgb(74, 185, 219);
 
         }
     }
