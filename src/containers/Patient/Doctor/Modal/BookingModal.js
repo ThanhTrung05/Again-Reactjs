@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './BookingModal.scss';
-// import { getExtraInforById } from '../../../services/userServices'
+import { getProfileDoctorById } from '../../../../services/userServices'
 import { LANGUAGES } from "../../../../utils"
 import { FormattedMessage } from 'react-intl';
 import { Modal } from 'reactstrap';
-
+import ProfileDoctor from '../../Doctor/ProfileDoctor'
+import _ from 'lodash';
 
 class BookingModal extends Component {
 
@@ -18,6 +19,7 @@ class BookingModal extends Component {
     async componentDidMount() {
 
     }
+
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.language !== prevProps.language) {
 
@@ -30,6 +32,8 @@ class BookingModal extends Component {
         // toggle={}
         let { isOpenModal, closeBookingModal,
             dataTime } = this.props
+        let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
+        console.log('Yuric check datatime:', dataTime)
         return (
             <Modal
                 isOpen={isOpenModal}
@@ -49,8 +53,11 @@ class BookingModal extends Component {
                     </div>
                     <div className='booking-modal-body'>
                         {/* {JSON.stringify(dataTime)} */}
-                        <div className='doctor-infor'></div>
-                        <div className='price'>Giá khám 500000vnd</div>
+                        <div className='doctor-infor'>
+                            <ProfileDoctor
+                                doctorId={doctorId}
+                            />
+                        </div>
                         <div className='row'>
                             <div className='col-6 form-group'>
                                 <label>Họ tên</label>

@@ -130,7 +130,7 @@ class DoctorExtraInfor extends Component {
                                                 value={extraInfor.priceTypeData.value_en}
                                                 displayType={'text'}
                                                 thousandSeparator={true}
-                                                suffix={'USD'}
+                                                suffix={'$'}
                                             />
                                         }
                                     </span>

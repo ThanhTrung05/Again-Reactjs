@@ -28,7 +28,7 @@ class DefaultClass extends Component {
 
         return (
             <div>
-
+                Yuric hello from
             </div>
         )
     }
