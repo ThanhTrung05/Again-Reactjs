@@ -33,7 +33,7 @@ class BookingModal extends Component {
         let { isOpenModal, closeBookingModal,
             dataTime } = this.props
         let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
-        console.log('Yuric check datatime:', dataTime)
+
         return (
             <Modal
                 isOpen={isOpenModal}
@@ -56,6 +56,8 @@ class BookingModal extends Component {
                         <div className='doctor-infor'>
                             <ProfileDoctor
                                 doctorId={doctorId}
+                                isShowDescriptionDoctor={false}
+                                dataTime={dataTime}
                             />
                         </div>
                         <div className='row'>
