@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 // import './DefaultClass.scss';
-import { getExtraInforById } from '../../../services/userServices'
-import { LANGUAGES } from "../../../utils"
-import { FormattedMessage } from 'react-intl';
+// import { getExtraInforById } from '../../../services/userServices'
+// import { LANGUAGES } from "../../../utils"
+// import { FormattedMessage } from 'react-intl';
 
 class DefaultClass extends Component {
 
