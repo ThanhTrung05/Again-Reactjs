@@ -18,6 +18,8 @@ class VerifyEmail extends Component {
     async componentDidMount() {
 
         if (this.props.location && this.props.location.search) {
+
+
             let urlParams = new URLSearchParams(this.props.location.search);
 
             let token = urlParams.get('token');
@@ -27,7 +29,7 @@ class VerifyEmail extends Component {
                 doctorId: doctorId
             })
 
-            if (res & res.errCode === 0) {
+            if (res && res.errCode === 0) {
                 this.setState({
                     stateVerify: true,
                     errCode: res.errCode
@@ -35,7 +37,7 @@ class VerifyEmail extends Component {
             } else {
                 this.setState({
                     stateVerify: true,
-                    errCode: res && res.errCode ? res.errCode : -1
+                    errCode: res && res.errCode ? res.errCode : - 1
                 })
 
             }
@@ -66,11 +68,12 @@ class VerifyEmail extends Component {
                         </div>
                         :
                         <div>
-                            {+errCode === 0 ?
-                                <div className="infor-booking">Lịch hẹn không tồn tại hoặc đã được xác nhận</div>
-                                :
-
+                            {+ errCode === 0 ?
                                 <div className="infor-booking">Xác nhận lịch hẹn thành công</div>
+
+                                :
+                                <div className="infor-booking">Lịch hẹn không tồn tại hoặc đã được xác nhận</div>
+
                             }
                         </div>
                     }
