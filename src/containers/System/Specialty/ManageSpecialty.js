@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ManageSpecialty.scss';
-import { createNewSpecialty } from '../../../services/userServices'
+import { createNewSpecialty, } from '../../../services/userServices'
 // import { LANGUAGES } from "../../../utils"
 // import { FormattedMessage } from 'react-intl';
 
@@ -82,11 +82,19 @@ class ManageSpecialty extends Component {
         if (res && res.errCode === 0) {
             toast.success('Create a new Specialty succeed ! ')
 
+            this.setState({
+                name: '',
+                previewimgURL: '',
+                avatar: '',
+                descriptionHTML: '',
+                descriptionMarkdown: ''
+            })
+
         } else {
             toast.error('Create a new Specialty error ! ')
             console.log('Yuric check res: ', res)
         }
-        console.log('', this.state)
+
     }
 
     render() {
