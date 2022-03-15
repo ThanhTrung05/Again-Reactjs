@@ -33,9 +33,10 @@
         }
 
         .time-content {
-            display  : flex;
-            gap      : 15px;
-            flex-wrap: wrap;
+            display       : flex;
+            flex-direction: column;
+            gap           : 15px;
+            flex-wrap     : wrap;
 
             .time-content-btns {
 

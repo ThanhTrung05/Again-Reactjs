@@ -65,7 +65,7 @@ class BookingModal extends Component {
             let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
             let timeType = dataTime && !_.isEmpty(dataTime) ? dataTime.timeType : '';
 
-            console.log('Yuric check dataTime: ', dataTime)
+
 
             this.setState({
                 doctorId: doctorId,
@@ -171,7 +171,7 @@ class BookingModal extends Component {
 
         let { genders } = this.state
 
-        console.log('Yuric check dataTime', dataTime)
+
 
 
         return (
