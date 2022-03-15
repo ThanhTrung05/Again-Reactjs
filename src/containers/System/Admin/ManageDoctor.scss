@@ -1,5 +1,5 @@
 .manage-doctor-container {
-
+    // padding: 0 15px;
 
     .manage-doctor-title {
         text-align    : center;
@@ -7,6 +7,11 @@
         font-size     : 20px;
         text-transform: uppercase;
         font-weight   : 600;
+    }
+
+    .specialty-choose {
+        display       : flex;
+        flex-direction: row;
     }
 
 
@@ -49,11 +54,11 @@
         padding-bottom: 15px;
 
         .content-left {
-            width: 40%;
+            width: 35%;
         }
 
         .content-right {
-            width: 60%;
+            width: 65%;
         }
     }
 }
