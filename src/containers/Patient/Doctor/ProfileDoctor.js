@@ -87,8 +87,6 @@ class ProfileDoctor extends Component {
 
         }
 
-        console.log('Yuric check state from profileDoctor: ', dataTime)
-
         return (
             <div className="profile-doctor-container">
                 <div className="intro-doctor">

@@ -201,7 +201,13 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedOption: '',
             description: '',
-
+            addressClinic: '',
+            nameClinic: '',
+            note: '',
+            selectedPrice: '',
+            selectedPayment: '',
+            selectedProvince: '',
+            selectedSpecialty: ''
         })
     }
 
@@ -210,15 +216,16 @@ class ManageDoctor extends Component {
     handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption })
 
-        let { listPayment, listPrice, listProvince } = this.state
+        let { listPayment, listPrice, listProvince, listSpecialty } = this.state
 
         let res = await getDetailInfoDoctor(selectedOption.value)
 
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown
             let addressClinic = '', nameClinic = '', note = '',
-                paymentId = '', priceId = '', provinceId = '',
-                selectedPayment = '', selectedPrice = '', selectedProvince = '';
+                paymentId = '', priceId = '', provinceId = '', specialtyId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '',
+                selectedSpecialty = ''
 
 
 
@@ -231,6 +238,7 @@ class ManageDoctor extends Component {
                 paymentId = doctorInfor.paymentId;
                 priceId = doctorInfor.priceId;
                 provinceId = doctorInfor.provinceId;
+                specialtyId = doctorInfor.specialtyId;
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
                 })
@@ -240,6 +248,9 @@ class ManageDoctor extends Component {
                 })
                 selectedProvince = listProvince.find(item => {
                     return item && item.value === provinceId
+                })
+                selectedSpecialty = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
                 })
 
                 console.log('Yuric check array: ', selectedPayment, selectedPrice, selectedProvince)
@@ -254,7 +265,8 @@ class ManageDoctor extends Component {
                 note: note,
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
-                selectedProvince: selectedProvince
+                selectedProvince: selectedProvince,
+                selectedSpecialty: selectedSpecialty
             })
         } else {
             this.setState({
@@ -265,6 +277,10 @@ class ManageDoctor extends Component {
                 addressClinic: '',
                 nameClinic: '',
                 note: '',
+                selectedPrice: '',
+                selectedPayment: '',
+                selectedProvince: '',
+                selectedSpecialty: ''
             })
         }
 
