@@ -17,9 +17,11 @@ class DetailSpecialty extends Component {
         this.state = {
             arrDoctorId: [],
             dataDetailSpecialty: {},
-            listProvince: []
+            listProvince: [],
+            showing: true
         }
     }
+    //29, 49,50
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
@@ -27,9 +29,7 @@ class DetailSpecialty extends Component {
                 id: id,
                 location: `ALL`
             })
-
             let resProvince = await getAllCodeService('PROVINCE')
-
             if (res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
                 let data = res.data
                 let arrDoctorId = []
@@ -43,26 +43,73 @@ class DetailSpecialty extends Component {
 
                     }
                 }
+
+                let dataProvince = resProvince.data
+                if (dataProvince && dataProvince.length > 0) {
+                    dataProvince.unshift({
+                        createAt: null,
+                        keyMap: "ALL",
+                        type: "PROVINCE",
+                        value_en: "ALL",
+                        value_vi: "Toàn quốc"
+                    })
+                }
+
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrDoctorId: arrDoctorId,
-                    listProvince: resProvince.data
+                    listProvince: dataProvince ? dataProvince : []
                 })
             }
         }
     }
+
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.language !== prevProps.language) {
 
         }
     }
 
-    handleOnChangeSelect = (e) => {
-        console.log('Yuric check select: ', e.target.value)
+    handleOnChangeSelect = async (e) => {
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            let id = this.props.match.params.id;
+            let location = e.target.value;
+            let res = await getDetailSpecialtyById({
+                id: id,
+                location: location
+            })
+
+            if (res && res.errCode === 0) {
+                let data = res.data
+                let arrDoctorId = []
+                if (data && !_.isEmpty(res.data)) {
+                    let arr = data.doctorSpecialty
+
+                    if (arr && arr.length > 0) {
+                        arr.map(item => {
+                            arrDoctorId.push(item.doctorId)
+                        })
+
+                    }
+                }
+
+                this.setState({
+                    dataDetailSpecialty: res.data,
+                    arrDoctorId: arrDoctorId,
+                })
+            }
+        }
     }
 
+    handleShowSpecialty = (status) => {
+        this.setState({
+            showing: status
+        })
+    }
+    //show-description-specialty 
     render() {
-        let { arrDoctorId, dataDetailSpecialty, listProvince } = this.state
+        let { arrDoctorId, dataDetailSpecialty, listProvince,
+            showing } = this.state
         console.log('Yucric check state: ', this.state)
         let { language } = this.props
         return (
@@ -70,13 +117,48 @@ class DetailSpecialty extends Component {
                 <HomeHeader />
                 <div className="detail-specialty-body">
                     <div className="description-specialty">
-                        {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
-                            &&
-                            <div
-                                dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTML }}
-                            >
+                        {showing === true &&
+                            <>
+                                <div className="hide-description-specialty ">
 
-                            </div>
+                                    {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
+                                        &&
+                                        <div
+                                            dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTML }}
+                                        >
+
+                                        </div>
+                                    }
+
+                                </div>
+                                <div className="more-specialty">
+                                    <span
+                                        onClick={() => this.handleShowSpecialty(false)}
+                                    >Xem thêm</span>
+                                </div>
+                            </>
+                        }
+
+                        {showing === false &&
+                            <>
+                                <div className="show-description-specialty ">
+
+                                    {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
+                                        &&
+                                        <div
+                                            dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTML }}
+                                        >
+
+                                        </div>
+                                    }
+
+                                </div>
+                                <div className="more-specialty">
+                                    <span
+                                        onClick={() => this.handleShowSpecialty(true)}
+                                    >Ẩn</span>
+                                </div>
+                            </>
                         }
                     </div>
                     <div className="search-specialty-doctor">
@@ -104,6 +186,8 @@ class DetailSpecialty extends Component {
                                             <ProfileDoctor
                                                 doctorId={item}
                                                 isShowDescriptionDoctor={true}
+                                                isSkhowLinkDetail={true}
+                                                isShowPrice={false}
                                             //  dataTime={dataTime}
                                             />
                                         </div>
