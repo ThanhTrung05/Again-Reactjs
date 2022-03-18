@@ -125,6 +125,18 @@ class ManageDoctor extends Component {
                 })
             }
 
+            if (type === 'CLINIC') {
+                inputData.map((item, index) => {
+                    let object = {};
+
+                    object.label = item.name;
+                    object.value = item.id
+
+                    results.push(object);
+
+                })
+            }
+
         }
 
         return results
@@ -139,17 +151,18 @@ class ManageDoctor extends Component {
         }
 
         if (prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor) {
-            let { resPrice, resPayment, resProvince, resSpecialty } = this.props.allRequiredDoctorInfor
+            let { resPrice, resPayment, resProvince, resSpecialty, resClinic } = this.props.allRequiredDoctorInfor
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
-
+            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
-                listSpecialty: dataSelectSpecialty
+                listSpecialty: dataSelectSpecialty,
+                listClinic: dataSelectClinic
             })
         }
 
@@ -207,7 +220,8 @@ class ManageDoctor extends Component {
             selectedPrice: '',
             selectedPayment: '',
             selectedProvince: '',
-            selectedSpecialty: ''
+            selectedSpecialty: '',
+            selectedClinic: ''
         })
     }
 
@@ -216,7 +230,7 @@ class ManageDoctor extends Component {
     handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption })
 
-        let { listPayment, listPrice, listProvince, listSpecialty } = this.state
+        let { listPayment, listPrice, listProvince, listSpecialty, listClinic } = this.state
 
         let res = await getDetailInfoDoctor(selectedOption.value)
 
@@ -225,7 +239,7 @@ class ManageDoctor extends Component {
             let addressClinic = '', nameClinic = '', note = '',
                 paymentId = '', priceId = '', provinceId = '', specialtyId = '',
                 selectedPayment = '', selectedPrice = '', selectedProvince = '',
-                selectedSpecialty = ''
+                selectedSpecialty = '', clinicId = '', selectedClinic = '';
 
 
 
@@ -239,6 +253,7 @@ class ManageDoctor extends Component {
                 priceId = doctorInfor.priceId;
                 provinceId = doctorInfor.provinceId;
                 specialtyId = doctorInfor.specialtyId;
+                clinicId = doctorInfor.clinicId;
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
                 })
@@ -251,6 +266,9 @@ class ManageDoctor extends Component {
                 })
                 selectedSpecialty = listSpecialty.find(item => {
                     return item && item.value === specialtyId
+                })
+                selectedClinic = listClinic.find(item => {
+                    return item && item.value === clinicId
                 })
 
                 console.log('Yuric check array: ', selectedPayment, selectedPrice, selectedProvince)
@@ -266,7 +284,8 @@ class ManageDoctor extends Component {
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
                 selectedProvince: selectedProvince,
-                selectedSpecialty: selectedSpecialty
+                selectedSpecialty: selectedSpecialty,
+                selectedClinic: selectedClinic
             })
         } else {
             this.setState({
@@ -280,7 +299,8 @@ class ManageDoctor extends Component {
                 selectedPrice: '',
                 selectedPayment: '',
                 selectedProvince: '',
-                selectedSpecialty: ''
+                selectedSpecialty: '',
+                selectedClinic: ''
             })
         }
 
@@ -311,7 +331,7 @@ class ManageDoctor extends Component {
 
     render() {
         let { hasOldData, listPrice, listPayment, listProvince,
-            listSpecialty } = this.state
+            listSpecialty, listClinic } = this.state
         console.log('Yuric check state: ', this.state)
         return (
             <div className="manage-doctor-container">
@@ -440,7 +460,7 @@ class ManageDoctor extends Component {
                         <Select
                             value={this.state.selectedClinic}
                             onChange={this.handleChangeSelectDoctorInfor}
-                            // options={ }
+                            options={listClinic}
                             placeholder={<FormattedMessage id="admin.manage-doctor.select-clinic" />}
                             name="selectedClinic"
                         />
