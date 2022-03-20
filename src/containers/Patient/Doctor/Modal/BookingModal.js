@@ -97,7 +97,9 @@ class BookingModal extends Component {
 
     handleConfirmBooking = async () => {
         //validate input
-        let date = new Date(this.state.birthday).getTime()
+        let birthday = new Date(this.state.birthday).getTime()
+
+        let date = this.props.dataTime.date
 
         let timeString = this.buildTimeBooking(this.props.dataTime)
 
@@ -109,13 +111,14 @@ class BookingModal extends Component {
             email: this.state.email,
             address: this.state.address,
             reason: this.state.reason,
-            date: date,
+            birthday: birthday,
             selectedGender: this.state.selectedGender.value,
             doctorId: this.state.doctorId,
             timeType: this.state.timeType,
             language: this.props.language,
             timeString: timeString,
             doctorName: doctorName,
+            date: date
         })
 
         if (res && res.errCode === 0) {
@@ -170,9 +173,6 @@ class BookingModal extends Component {
         let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
 
         let { genders } = this.state
-
-
-
 
         return (
             <Modal
