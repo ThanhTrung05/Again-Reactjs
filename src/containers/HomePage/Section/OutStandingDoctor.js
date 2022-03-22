@@ -56,7 +56,7 @@ class OutStandingDoctor extends Component {
                                 allDoctors.map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
-                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary')
+                                        imageBase64 = Buffer.from(item.image, 'base64').toString('binary')
                                     }
                                     let nameVi = `${item.positionData.value_vi}, ${item.lastName} ${item.firstName}`
                                     let nameEn = `${item.positionData.value_en}, ${item.firstName} ${item.lastName}`

@@ -38,9 +38,7 @@ class HomePage extends Component {
                 <OutStandingDoctor
                     settings={settings}
                 />
-                <HandBook
-                    settings={settings}
-                />
+
                 <About
 
                 />
